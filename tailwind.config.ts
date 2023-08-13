@@ -8,6 +8,7 @@ const config: Config = {
 				"page-content": "min(1024px, 90%)"
 			},
 			screens: {
+				small: "380px",
 				mb: "520px"
 			},
 			colors: {

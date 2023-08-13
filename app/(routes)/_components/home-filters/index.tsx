@@ -40,7 +40,7 @@ export const HomeFilters: React.FC = () => {
 							label={filter.label}
 							isActive={filter.id === isActive}
 							onClick={() => setIsActive(filter.id)}
-							className={twMerge("shadow-md")}
+							className={twMerge("shadow-sm")}
 						/>
 					</li>
 				))}

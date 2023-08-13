@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { HeaderSchedules } from "./_components/header-schedules";
 import { HomeFilters } from "./_components/home-filters";
 import { HomeSearch } from "./_components/home-search-bar";
+import { Services } from "./_components/services";
 
 export default function Home() {
 	return (
@@ -15,6 +16,7 @@ export default function Home() {
 			<section className={twMerge("w-page-content", "mx-auto", "flex", "flex-col", "gap-4")}>
 				<HomeSearch className={twMerge("shadow-sm")} />
 				<HomeFilters />
+				<Services />
 			</section>
 		</main>
 	);
