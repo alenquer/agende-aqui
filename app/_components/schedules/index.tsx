@@ -2,7 +2,7 @@
 import { twMerge } from "tailwind-merge";
 
 export interface IScheduleProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
-	title: string;
+	title?: string;
 }
 
 export const Schedules: React.FC<IScheduleProps> = ({ title = "Agendamentos", className, ...rest }) => {
