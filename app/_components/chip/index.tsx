@@ -13,6 +13,7 @@ export const Chip: React.FC<IChipProps> = ({ label, isActive, className, ...rest
 				"px-4",
 				"py-2",
 				"rounded-md",
+				"whitespace-nowrap",
 				"hover:opacity-50",
 				isActive ? "bg-primary" : "bg-slate-200",
 				className

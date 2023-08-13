@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JotaiProvider } from "~/_providers/jotai.provider";
 import { inter } from "~/_shared";
 import "./styles.css";
 
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>{children}</body>
+			<JotaiProvider>
+				<body className={inter.className}>{children}</body>
+			</JotaiProvider>
 		</html>
 	);
 }

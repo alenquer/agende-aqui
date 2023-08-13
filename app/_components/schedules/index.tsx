@@ -3,9 +3,10 @@ import { twMerge } from "tailwind-merge";
 
 export interface IScheduleProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
 	title?: string;
+	qty: number;
 }
 
-export const Schedules: React.FC<IScheduleProps> = ({ title = "Agendamentos", className, ...rest }) => {
+export const Schedules: React.FC<IScheduleProps> = ({ title = "Agendamentos", qty = 0, className, ...rest }) => {
 	return (
 		<button
 			className={twMerge(
@@ -23,7 +24,7 @@ export const Schedules: React.FC<IScheduleProps> = ({ title = "Agendamentos", cl
 				<p className={twMerge("text-sm", "font-semibold", "text-white")}>{title}</p>
 			</div>
 			<div className={twMerge("bg-secondary", "py-2", "px-4", "h-full")}>
-				<p className={twMerge("text-sm", "font-semibold", "text-white")}>5</p>
+				<p className={twMerge("text-sm", "font-semibold", "text-white")}>{qty}</p>
 			</div>
 		</button>
 	);
