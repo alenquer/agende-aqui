@@ -2,9 +2,9 @@
 import { useSetAtom } from "jotai";
 import { startTransition, useEffect, useState } from "react";
 import { $search } from "~/(routes)/_stores";
-import { SearchBar } from "~/_components/search-bar";
+import { SearchBar as DefaultSearchBar } from "~/_components/search-bar";
 
-export const HomeSearch: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }) => {
+export const SearchBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }) => {
 	const setSearch = useSetAtom($search);
 
 	const [value, setValue] = useState<string>("");
@@ -24,5 +24,5 @@ export const HomeSearch: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ cla
 		return () => clearTimeout(handler);
 	}, [value, setSearch]); // Only re-call effect if value or delay changes
 
-	return <SearchBar value={value} onChange={_onTextChange} containerClass={className} />;
+	return <DefaultSearchBar value={value} onChange={_onTextChange} containerClass={className} />;
 };

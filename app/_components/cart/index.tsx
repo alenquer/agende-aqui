@@ -6,7 +6,7 @@ export interface IScheduleProps extends React.HtmlHTMLAttributes<HTMLButtonEleme
 	qty: number;
 }
 
-export const Schedules: React.FC<IScheduleProps> = ({ title = "Agendamentos", qty = 0, className, ...rest }) => {
+export const Cart: React.FC<IScheduleProps> = ({ title = "Agendamentos", qty = 0, className, ...rest }) => {
 	return (
 		<button
 			className={twMerge(

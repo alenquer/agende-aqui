@@ -21,7 +21,7 @@ const filterList = [
 	}
 ];
 
-export const HomeFilters: React.FC = () => {
+export const Filters: React.FC = () => {
 	const constraintsRef = useRef<HTMLDivElement>(null);
 
 	const [isActive, setIsActive] = useAtom($filter);
