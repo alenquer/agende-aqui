@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { HeaderSchedules } from "./_components/header-schedules";
 import { HomeFilters } from "./_components/home-filters";
+import { Paginate } from "./_components/home-paginate";
 import { HomeSearch } from "./_components/home-search-bar";
 import { Services } from "./_components/services";
 
@@ -17,6 +18,7 @@ export default function Home() {
 				<HomeSearch className={twMerge("shadow-sm")} />
 				<HomeFilters />
 				<Services />
+				<Paginate />
 			</section>
 		</main>
 	);
