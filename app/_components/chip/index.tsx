@@ -20,7 +20,15 @@ export const Chip: React.FC<IChipProps> = ({ label, isActive, className, ...rest
 			)}
 			{...rest}
 		>
-			<span className={twMerge(isActive ? "text-white" : "text-slate-400", "text-sm")}>{label}</span>
+			<span
+				className={twMerge(
+					isActive ? "text-white" : "text-slate-400",
+					isActive ? "font-semibold" : "font-normal",
+					"text-sm"
+				)}
+			>
+				{label}
+			</span>
 		</button>
 	);
 };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { twMerge } from "tailwind-merge";
 import { JotaiProvider } from "~/_providers/jotai.provider";
 import { inter } from "~/_shared";
 import "./styles.css";
@@ -12,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<JotaiProvider>
-				<body className={inter.className}>{children}</body>
+				<body className={twMerge(inter.className)}>{children}</body>
 			</JotaiProvider>
 		</html>
 	);

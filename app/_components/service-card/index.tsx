@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 export interface IServiceCard extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,9 +12,9 @@ export const ServiceCard: React.FC<IServiceCard> = ({ title, description = "", p
 	return (
 		<div
 			className={twMerge(
-				"h-80",
+				"h-64",
 				"border-[1px]",
-				"border-[#eee]",
+				"border-tertiary",
 				"bg-white",
 				"rounded-md",
 				"overflow-hidden",
@@ -26,18 +27,23 @@ export const ServiceCard: React.FC<IServiceCard> = ({ title, description = "", p
 			{...rest}
 		>
 			<div className={twMerge("flex", "flex-col", "items-center", "gap-2")}>
-				<p className={twMerge("text-sm", "text-primary", "font-semibold")}>{price}</p>
-				<div className={twMerge("w-full", "h-24", "rounded-md", "bg-slate-200")} />
 				<div className={twMerge("text-left", "w-full")}>
 					<p className={twMerge("text-sm", "font-semibold", "text-primary", "line-clamp-2")}>{title}</p>
-					<p className={twMerge("text-[12px]", "text-[#11111199]", "mt-1", "line-clamp-3")}>
+					<p className={twMerge("text-xs", "text-[#11111199]", "mt-1", "line-clamp-4")}>
 						{description || "Sem detalhes..."}
 					</p>
 				</div>
 			</div>
-			<button className={twMerge("w-full", "h-9", "bg-primary", "rounded-md", "hover:opacity-50")}>
-				<span className={twMerge("text-white", "font-semibold", "text-sm")}>Agendado</span>
-			</button>
+			<div className={twMerge("flex", "flex-col", "gap-2")}>
+				<Link href={`/services/${title}`}>
+					<button className={twMerge("w-full", "h-9", "bg-primary", "rounded-md", "hover:opacity-50")}>
+						<span className={twMerge("text-white", "font-semibold", "text-xs", "sm:text-sm")}>Agendado</span>
+					</button>
+				</Link>
+				<button className={twMerge("w-full", "h-9", "bg-primary", "rounded-md", "hover:opacity-50")} disabled>
+					<span className={twMerge("font-semibold", "text-white", "text-xs", "sm:text-sm")}>{price}</span>
+				</button>
+			</div>
 		</div>
 	);
 };

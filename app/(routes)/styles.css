@@ -14,7 +14,7 @@ body {
 
 @layer components {
 	.pagination-item {
-		@apply flex items-center hover:opacity-50 cursor-pointer justify-center text-[12px] rounded-sm w-9 h-9 text-[#111] border-[#1111111a] border-[1px] bg-white overflow-hidden;
+		@apply flex items-center hover:opacity-50 cursor-pointer justify-center text-xs rounded-sm w-9 h-9 text-[#111] border-tertiary border-[1px] bg-white overflow-hidden;
 	}
 
 	.pagination-item-active {

@@ -24,7 +24,7 @@ const filterList = [
 export const Filters: React.FC = () => {
 	const constraintsRef = useRef<HTMLDivElement>(null);
 
-	const [isActive, setIsActive] = useAtom($filter);
+	const [currentFilter, setCurrentFilter] = useAtom($filter);
 
 	return (
 		<div ref={constraintsRef}>
@@ -38,8 +38,8 @@ export const Filters: React.FC = () => {
 					<li key={filter.id}>
 						<Chip
 							label={filter.label}
-							isActive={filter.id === isActive}
-							onClick={() => setIsActive(filter.id)}
+							isActive={filter.id === currentFilter}
+							onClick={() => setCurrentFilter(filter.id)}
 							className={twMerge("shadow-sm")}
 						/>
 					</li>
