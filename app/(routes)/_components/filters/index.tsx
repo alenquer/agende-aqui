@@ -18,6 +18,10 @@ const filterList = [
 	{
 		id: "100-500",
 		label: "R$ 100-500"
+	},
+	{
+		id: "500more",
+		label: "R$ 500+"
 	}
 ];
 
