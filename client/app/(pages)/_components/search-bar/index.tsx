@@ -1,7 +1,7 @@
 "use client";
 import { useSetAtom } from "jotai";
 import { startTransition, useEffect, useState } from "react";
-import { $search } from "~/(routes)/_stores";
+import { $search } from "~/(pages)/_stores";
 import { SearchBar as DefaultSearchBar } from "~/_components/search-bar";
 
 export const SearchBar: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }) => {

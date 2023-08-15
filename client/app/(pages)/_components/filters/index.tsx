@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { $filter } from "~/(routes)/_stores";
+import { $filter } from "~/(pages)/_stores";
 import { Chip } from "~/_components/chip";
 
 const filterList = [

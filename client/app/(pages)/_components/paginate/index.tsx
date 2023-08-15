@@ -1,6 +1,6 @@
 "use client";
 import { useAtom, useStore } from "jotai";
-import { $page } from "~/(routes)/_stores";
+import { $page } from "~/(pages)/_stores";
 import { Paginate as DefaultPaginate } from "~/_components/paginate";
 
 export const Paginate: React.FC = () => {
