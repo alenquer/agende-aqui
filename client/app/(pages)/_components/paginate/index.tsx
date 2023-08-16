@@ -1,12 +1,14 @@
 "use client";
-import { useAtom, useStore } from "jotai";
-import { $page } from "~/(pages)/_stores";
+import { useAtom, useAtomValue } from "jotai";
+import { $page, $services } from "~/(pages)/_stores";
 import { Paginate as DefaultPaginate } from "~/_components/paginate";
 
 export const Paginate: React.FC = () => {
-	const store = useStore();
+	const [page, setPage] = useAtom($page);
 
-	const [page, setPage] = useAtom($page, { store });
+	const { data, isFetched } = useAtomValue($services);
 
-	return <DefaultPaginate currentPage={page} itemsPerPage={6} onPageChange={setPage} totalItems={1} />;
+	return !isFetched || !data.count ? null : (
+		<DefaultPaginate currentPage={page} itemsPerPage={8} onPageChange={setPage} totalItems={data.count} />
+	);
 };

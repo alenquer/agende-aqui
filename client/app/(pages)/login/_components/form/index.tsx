@@ -1,29 +1,89 @@
 "use client";
-
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
+import { startTransition, useRef, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import { PiPassword } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
-import { $jwtoken, $loadableJWTokenAsync } from "~/_stores";
+import { $user } from "~/_stores";
 
 export const Form: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }) => {
 	const router = useRouter();
 
-	const [jwtoken, setJWToken] = useAtom($jwtoken);
+	const isValidatingRef = useRef<boolean>(false);
 
-	const jwtokenAsync = useAtomValue($loadableJWTokenAsync);
+	const [user, setUser] = useAtom($user);
 
-	const _submitLogin = () => {
-		setJWToken("xd");
+	const [email, setEmail] = useState<string>("");
+
+	const [password, setPassword] = useState<string>("");
+
+	const [loading, setLoading] = useState<boolean>(false);
+
+	const _submitLogin = async () => {
+		if (!password || !email) return alert("Preencha todos os campos");
+
+		if (isValidatingRef.current) return alert("Por favor, aguarde.");
+
+		setLoading(true);
+
+		const response = await fetch("/api/session/login", {
+			method: "POST",
+			body: JSON.stringify({ email, password }),
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json"
+			}
+		});
+
+		const result = await response.json();
+
+		if (result?.success) {
+			setUser(result.data);
+			router.replace("/");
+		} else {
+			alert("Ocorreu um erro.");
+			setLoading(false);
+		}
 	};
 
-	const _submitLogout = () => {
-		setJWToken("");
+	const _submitRegister = async () => {
+		if (!password || !email) return alert("Preencha todos os campos");
+
+		if (isValidatingRef.current) return alert("Por favor, aguarde.");
+
+		setLoading(true);
+
+		const response = await fetch("/api/session/register", {
+			method: "POST",
+			body: JSON.stringify({ email, password }),
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json"
+			}
+		});
+
+		const result = await response.json();
+
+		if (!result?.success) {
+			alert("Ocorreu um erro.");
+			setLoading(false);
+		} else {
+			setUser(result.data);
+			router.replace("/");
+		}
 	};
 
-	return jwtokenAsync.state === "loading" ? (
+	const _submitLogout = async () => {
+		const response = await fetch("/api/session/logout", { method: "GET" });
+
+		const result = await response.json();
+
+		if (result?.success) setUser({ id: "", token: "" });
+	};
+
+	return !user || loading ? (
 		<p className={twMerge("text-sm")}>Carregando...</p>
 	) : (
 		<div
@@ -44,9 +104,9 @@ export const Form: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className
 				<button className={twMerge("hover:opacity-50")} onClick={router.back}>
 					<IoChevronBackCircleSharp color="#6E66DD" size={24} />
 				</button>
-				<p className={twMerge("text-lg", "font-semibold", "text-primary")}>{jwtoken ? "Logout" : "Login"}</p>
+				<p className={twMerge("text-lg", "font-semibold", "text-primary")}>{user?.id ? "Logout" : "Login"}</p>
 			</div>
-			{jwtoken ? (
+			{user?.id ? (
 				<div>
 					<button
 						onClick={_submitLogout}
@@ -80,7 +140,13 @@ export const Form: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className
 										"text-sm",
 										"text-slate-500"
 									)}
-									placeholder="Usuário"
+									placeholder="E-mail"
+									value={email}
+									onChange={(e) => {
+										startTransition(() => {
+											setEmail(e.target.value);
+										});
+									}}
 								/>
 							</div>
 							<div className={twMerge("flex", "flex-row", "gap-3", "items-center")}>
@@ -96,6 +162,13 @@ export const Form: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className
 										"text-slate-500"
 									)}
 									placeholder="Senha"
+									type="password"
+									value={password}
+									onChange={(e) => {
+										startTransition(() => {
+											setPassword(e.target.value);
+										});
+									}}
 								/>
 							</div>
 						</div>
@@ -116,6 +189,7 @@ export const Form: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className
 								Entrar
 							</button>
 							<button
+								onClick={_submitRegister}
 								className={twMerge(
 									"h-9",
 									"w-full",

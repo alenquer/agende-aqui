@@ -7,6 +7,26 @@ export interface IJWToken {
 	exp: number;
 }
 
+export function getUserId(authorization: string | null | undefined, secret: string) {
+	try {
+		if (!authorization) return "";
+
+		const parts = authorization.split(" ");
+
+		const [scheme, token] = parts;
+
+		if (parts.length !== 2) return "";
+
+		if (!/^Bearer$/i.test(scheme)) return "";
+
+		const { id } = jwt.verify(token, secret) as IJWToken;
+
+		return id;
+	} catch {
+		return "";
+	}
+}
+
 export default async function authMiddle(req: FastifyRequest, res: FastifyReply) {
 	if (!req.headers?.authorization) {
 		return res.status(401).send({ error: "No token provided" });

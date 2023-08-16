@@ -8,20 +8,12 @@ import { Chip } from "~/_components/chip";
 
 const filterList = [
 	{
-		id: "all",
-		label: "Todos"
+		id: "desc",
+		label: "Mais recentes"
 	},
 	{
-		id: "0-100",
-		label: "R$ 0-100"
-	},
-	{
-		id: "100-500",
-		label: "R$ 100-500"
-	},
-	{
-		id: "500more",
-		label: "R$ 500+"
+		id: "asc",
+		label: "Mais antigos"
 	}
 ];
 

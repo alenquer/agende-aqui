@@ -18,7 +18,7 @@ model Service {
   price String?
   professional String?
   schedules ServiceSchedule[]
-  availabilities ServiceAvailability[]
+  availability String[]
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
@@ -28,15 +28,6 @@ model User {
   email String
   password String
   schedules ServiceSchedule[]
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
-}
-
-model ServiceAvailability {
-  id String @id @default(uuid())
-  availability String
-  serviceId String
-  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }

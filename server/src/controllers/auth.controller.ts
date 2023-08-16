@@ -42,7 +42,7 @@ export const handleLogin = async (req: ILoginRequest, res: FastifyReply) => {
 		expiresIn: 86400
 	});
 
-	return res.status(200).send({ data: { user: { ...user }, token } });
+	return res.status(200).send({ data: { user: { ...user }, token }, success: true });
 };
 
 export const handleRegister = async (req: IRegisterRequest, res: FastifyReply) => {

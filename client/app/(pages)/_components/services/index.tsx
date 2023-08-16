@@ -1,49 +1,27 @@
+"use client";
+import { useAtomValue } from "jotai";
 import { twMerge } from "tailwind-merge";
+import { $services } from "~/(pages)/_stores";
 import { ServiceCard } from "~/_components/service-card";
 
-const serviceList = [
-	{
-		id: "1",
-		title: "Empresa",
-		description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-		price: "R$ 100,00"
-	},
-	{
-		id: "2",
-		title: "Empresa",
-		description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-		price: "R$ 100,00"
-	},
-	{
-		id: "3",
-		title: "Empresa",
-		description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-		price: "R$ 100,00"
-	},
-	{
-		id: "4",
-		title: "Empresa",
-		description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-		price: "R$ 100,00"
-	},
-	{
-		id: "5",
-		title: "Empresa",
-		description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-		price: "R$ 100,00"
-	}
-];
-
 export const Services: React.FC = () => {
-	return (
+	const { data, isFetched } = useAtomValue($services);
+
+	return !isFetched ? (
+		<p className={twMerge("text-sm", "text-description")}>Carregando...</p>
+	) : !data.count ? (
+		<p className={twMerge("text-sm", "text-description")}>Nenhum serviço encontrado.</p>
+	) : (
 		<ul className={twMerge("grid", "small:grid-cols-2", "sm:grid-cols-3", "lg:grid-cols-4", "gap-6")}>
-			{serviceList.map((service) => {
+			{data.services.map((service) => {
 				return (
 					<ServiceCard
 						key={service.id}
-						price={service.price}
-						title={service.title}
-						description={service.description}
+						data={{
+							...service,
+							isScheduled: service?.schedules && service.schedules.length > 0,
+							isClosed: service.availability.length === 0
+						}}
 						className={twMerge("shadow-sm")}
 					/>
 				);

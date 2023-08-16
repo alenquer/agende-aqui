@@ -1,34 +1,35 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src index.ts",
-    "dev:migrate": "prisma migrate dev --name init",
-    "build": "tsc -p tsconfig.json",
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@fastify/cors": "^8.3.0",
-    "@fastify/env": "^4.2.0",
-    "@fastify/formbody": "^7.4.0",
-    "@fastify/middie": "^8.3.0",
-    "@prisma/client": "^5.1.1",
-    "bcryptjs": "^2.4.3",
-    "fastify": "^4.21.0",
-    "jsonwebtoken": "^9.0.1"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/jsonwebtoken": "^9.0.2",
-    "@types/node": "^20.5.0",
-    "prisma": "^5.1.1",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src index.ts",
+		"dev:migrate": "prisma migrate dev --name init",
+		"dev:populate": "node scripts/import-data.js",
+		"build": "tsc -p tsconfig.json",
+		"start": "node ./build/index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@fastify/cors": "^8.3.0",
+		"@fastify/env": "^4.2.0",
+		"@fastify/formbody": "^7.4.0",
+		"@fastify/middie": "^8.3.0",
+		"@prisma/client": "^5.1.1",
+		"bcryptjs": "^2.4.3",
+		"fastify": "^4.21.0",
+		"jsonwebtoken": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/bcryptjs": "^2.4.2",
+		"@types/jsonwebtoken": "^9.0.2",
+		"@types/node": "^20.5.0",
+		"prisma": "^5.1.1",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^5.1.6"
+	}
 }

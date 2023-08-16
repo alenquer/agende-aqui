@@ -1,19 +1,18 @@
 "use client";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import { Cart } from "~/_components/cart";
-import { $jwtoken, $loadableJWTokenAsync, $schedules } from "~/_stores";
+import { $user } from "~/_stores";
 
 export const Header: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className }) => {
-	const schedules = useAtomValue($schedules);
+	const [user, setUser] = useAtom($user);
 
-	const [jwtoken, setJWToken] = useAtom($jwtoken);
+	const _submitLogout = async () => {
+		const response = await fetch("/api/session/logout", { method: "GET" });
 
-	const jwtokenAsync = useAtomValue($loadableJWTokenAsync);
+		const result = await response.json();
 
-	const _submitLogout = () => {
-		setJWToken("");
+		if (result?.success) setUser({ id: "", token: "" });
 	};
 
 	return (
@@ -31,20 +30,46 @@ export const Header: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ classNa
 			<Link href={"/"} className={twMerge("hover:opacity-50")}>
 				<p className={twMerge("text-lg", "text-primary", "font-semibold")}>Agende</p>
 			</Link>
-			{jwtokenAsync.state === "loading" ? (
+			{user === null ? (
 				<p className={twMerge("text-sm")}>Carregando...</p>
 			) : (
 				<div className={twMerge("flex", "flex-row", "gap-3", "items-center")}>
-					{jwtoken ? (
-						<button onClick={_submitLogout} className={twMerge("text-sm", "hover:opacity-50")}>
+					{user?.id ? (
+						<button
+							onClick={_submitLogout}
+							className={twMerge(
+								"text-sm",
+								"hover:opacity-50",
+								"px-4",
+								"py-2",
+								"text-white",
+								"bg-red-400",
+								"rounded-md",
+								"shadow-md",
+								"font-semibold"
+							)}
+						>
 							Sair
 						</button>
 					) : (
-						<Link href="/login" className={twMerge("hover:opacity-50")}>
-							<button className={twMerge("text-sm")}>Entrar</button>
+						<Link href="/login">
+							<button
+								className={twMerge(
+									"text-sm",
+									"px-4",
+									"py-2",
+									"hover:opacity-50",
+									"bg-primary",
+									"text-white",
+									"rounded-md",
+									"shadow-md",
+									"font-semibold"
+								)}
+							>
+								Entrar
+							</button>
 						</Link>
 					)}
-					<Cart title="Agendamentos" qty={schedules} className={twMerge("shadow-sm")} />
 				</div>
 			)}
 		</div>

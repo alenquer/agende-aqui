@@ -5,7 +5,7 @@ import { Paginate } from "./_components/paginate";
 import { SearchBar } from "./_components/search-bar";
 import { Services } from "./_components/services";
 
-export default function Home() {
+export default async function Home() {
 	return (
 		<main className={twMerge("flex", "flex-col", "gap-6", "py-4")}>
 			<header>
