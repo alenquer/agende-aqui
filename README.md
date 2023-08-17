@@ -29,7 +29,7 @@
 -  Protótipo: **[Figma](https://www.figma.com/)** &rarr; **<kbd>[Protótipo (AgendeAqui)](https://www.figma.com/file/PhjdQ5dgomr32r2PITdo6r/AgendeAqui?type=design&node-id=0%3A1&mode=design&t=9PVgK86ErnviAfnk-1)</kbd>**
 -  Ícones: **[React-Icons](https://react-icons.github.io/react-icons/)**
 
-## **:wine_glass: COMO UTILIZAR**
+## **:wine_glass: PRIMEIRAS CONFIGURAÇÕES**
 
 Primeiro, você precisa ter o <kbd>[NodeJS](https://nodejs.org/en/download/)</kbd> instalado na sua máquina.
 
@@ -45,9 +45,70 @@ ou
 $ npm install
 ```
 
+## **:wine_glass: COMO UTILIZAR NO BACK-END**
+
+# Configurando um Container Docker PostgreSQL
+
+Neste tutorial, você aprenderá a configurar um container Docker PostgreSQL utilizando as seguintes instruções.
+
+## Passo 1: Pull do PostgreSQL Docker Image
+
+Para começar, você precisa fazer o pull da imagem Docker oficial do PostgreSQL.
+
+```sh
+$ docker pull postgres
+```
+
+## Passo 2: Criando e Executando o Container PostgreSQL
+
+Agora, você pode criar e executar um container PostgreSQL com as configurações desejadas.
+
+```sh
+$ docker run --name my-postgres -p 5432:5432 -e POSTGRES_DB=teste -e POSTGRES_USER=user -e POSTGRES_PASSWORD=mypassword -d postgres
+```
+
+Neste comando:
+
+--name my-postgres: Define o nome do container como "my-postgres".
+-p 5432:5432: Mapeia a porta 5432 do host para a porta 5432 do container.
+-e POSTGRES_DB=teste: Define o nome do banco de dados como "teste".
+-e POSTGRES_USER=user: Define o nome de usuário como "user".
+-e POSTGRES_PASSWORD=mypassword: Define a senha do usuário como "mypassword".
+-d postgres: Utiliza a imagem Docker do PostgreSQL.
+
+Certifique-se de ter o Docker instalado e funcionando corretamente em seu sistema antes de seguir este tutorial.
+
 Agora configure as variáveis de ambiente necessárias, como:
 
+```sh
+SECRET=ADWADAFAFKLASJGAOIKJGHSAIOGSJAIOGJA // a mesma validadora de JWT que será adicionada no frontend.
+DATABASE_URL=postgresql://user:mypassword@localhost:5432/teste // connection string para estabelecer conexão com o banco de dados postgres.
+
+Obs: Substitua user, mypassword e teste pelos valores que você configurou anteriormente.
 ```
+
+Agora execute os seguintes comandos para configurar o banco de dados com as configurações necessárias:
+
+```sh
+$ npm run dev:migrate // para configurar o banco de dados.
+$ npm run dev:populate // para popular o banco de dados.
+```
+
+Após ter instalado todas as dependências, você poderá executar do projeto sem gerar a build para o seu dispositivo com:
+
+```sh
+$ yarn dev
+ou
+$ npm run dev
+```
+
+Abra [http://localhost:3333](http://localhost:3333) com seu navegador para ver o resultado.
+
+## **:wine_glass: COMO UTILIZAR NO FRONT-END**
+
+Configure as variáveis de ambiente necessárias, como:
+
+```sh
 NEXT_PUBLIC_API_URL=http://localhost:3333 // para se conectar com o backend.
 SECRET=ADWADAFAFKLASJGAOIKJGHSAIOGSJAIOGJA // para os validadores do token JWT (utilize a mesma variável para o backend!).
 ```
