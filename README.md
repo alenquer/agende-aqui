@@ -69,12 +69,14 @@ $ docker run --name my-postgres -p 5432:5432 -e POSTGRES_DB=teste -e POSTGRES_US
 
 Neste comando:
 
+```sh
 --name my-postgres: Define o nome do container como "my-postgres".
 -p 5432:5432: Mapeia a porta 5432 do host para a porta 5432 do container.
 -e POSTGRES_DB=teste: Define o nome do banco de dados como "teste".
 -e POSTGRES_USER=user: Define o nome de usuário como "user".
 -e POSTGRES_PASSWORD=mypassword: Define a senha do usuário como "mypassword".
 -d postgres: Utiliza a imagem Docker do PostgreSQL.
+```
 
 Certifique-se de ter o Docker instalado e funcionando corretamente em seu sistema antes de seguir este tutorial.
 
